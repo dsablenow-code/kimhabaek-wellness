@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIM HABAEK - 생리 주기 관리 및 한방 웰니스 차 추천</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="blob-bg blob-1"></div>
+    <div class="blob-bg blob-2"></div>
+    <div class="blob-bg blob-3"></div>
+
+    <div class="app-container">
+        <!-- Header / Navigation -->
+        <header class="main-header">
+            <div class="logo">
+                <span class="logo-title">KIM HABAEK</span>
+                <span class="logo-sub">김하백 연구소</span>
+            </div>
+            <nav class="main-nav" id="mainNav" style="display: none;">
+                <button class="nav-btn active" data-target="dashboard-view">대시보드</button>
+                <button class="nav-btn" data-target="tea-view">나의 추천 티</button>
+                <button class="nav-btn" data-target="science-view">과학적 근거</button>
+                <button class="nav-btn reset-btn" id="reDiagnoseBtn">자가진단 재실행</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <!-- 1. 자가진단 뷰 (Diagnosis View) -->
+            <section id="diagnosis-view" class="content-view active">
+                <div class="card glass diagnosis-card">
+                    <!-- Step 1: 페인포인트 선택 -->
+                    <div id="diag-step-1" class="diag-step active">
+                        <div class="step-header">
+                            <span class="step-num">STEP 01 / 02</span>
+                            <h2>지금 가장 개선하고 싶은 불편함은 무엇인가요?</h2>
+                            <p class="step-desc">가장 큰 페인포인트를 선택하시면, 향후 논문 분석 데이터를 기반으로 최적의 생활 루틴과 약재 가중치를 제공합니다.</p>
+                        </div>
+                        <div class="pain-options">
+                            <label class="pain-option-card">
+                                <input type="radio" name="painPoint" value="DYSMENORRHEA" checked>
+                                <div class="option-content">
+                                    <span class="option-icon">🩸</span>
+                                    <div class="option-text">
+                                        <h3>극심한 생리통</h3>
+                                        <p>아랫배 통증 및 허리 통증 개선을 집중 케어합니다.</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="pain-option-card">
+                                <input type="radio" name="painPoint" value="PMS">
+                                <div class="option-content">
+                                    <span class="option-icon">🧠</span>
+                                    <div class="option-text">
+                                        <h3>감정 기복 & PMS</h3>
+                                        <p>생리 전 짜증, 우울, 신체 붓기 밸런스를 조절합니다.</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="pain-option-card">
+                                <input type="radio" name="painPoint" value="PCOS">
+                                <div class="option-content">
+                                    <span class="option-icon">🗓️</span>
+                                    <div class="option-text">
+                                        <h3>생리 불순 & PCOS 의심</h3>
+                                        <p>불규칙한 생리 주기를 정상화하기 위한 원리를 맵핑합니다.</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="pain-option-card">
+                                <input type="radio" name="painPoint" value="COLDNESS">
+                                <div class="option-content">
+                                    <span class="option-icon">❄️</span>
+                                    <div class="option-text">
+                                        <h3>손발 & 아랫배 냉증</h3>
+                                        <p>체온 유지와 전신 혈행 순환 증진에 집중합니다.</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="pain-option-card">
+                                <input type="radio" name="painPoint" value="FATIGUE">
+                                <div class="option-content">
+                                    <span class="option-icon">🔋</span>
+                                    <div class="option-text">
+                                        <h3>만성 피로 & 에너지 고갈</h3>
+                                        <p>만성 피로 회복과 면역력 증강 루틴을 추천합니다.</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="step-footer">
+                            <button class="btn btn-primary" id="goStep2Btn">다음 단계로</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: 10문항 자가진단 -->
+                    <div id="diag-step-2" class="diag-step">
+                        <div class="step-header">
+                            <span class="step-num">STEP 02 / 02</span>
+                            <h2>나의 월경 상태 자가진단</h2>
+                            <p class="step-desc">최근 1년 동안 겪은 몸의 상태를 생각하며 꼼꼼히 체크해 주세요.</p>
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progressBar"></div>
+                            </div>
+                        </div>
+
+                        <div class="question-container" id="questionContainer">
+                            <!-- JS를 통해 질문 카드가 동적으로 렌더링됩니다 -->
+                        </div>
+
+                        <div class="step-footer">
+                            <button class="btn btn-secondary" id="backStep1Btn">이전</button>
+                            <button class="btn btn-primary" id="nextQuestionBtn">다음</button>
+                        </div>
+                    </div>
+
+                    <!-- 진단 완료 로딩/리포트 -->
+                    <div id="diag-loading" class="diag-step loading-step">
+                        <div class="spinner"></div>
+                        <h3>월경 유형 분석 중...</h3>
+                        <p>입력하신 페인포인트와 변증 데이터를 토대로 체질과 최적의 차를 조합하고 있습니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. 대시보드 뷰 (Dashboard View) -->
+            <section id="dashboard-view" class="content-view">
+                <div class="dashboard-grid">
+                    <!-- 생리 주기 트래커 D-Day & 달력형 기록기 -->
+                    <div class="card glass tracker-card">
+                        <div class="card-header">
+                            <h3>월경 주기 관리</h3>
+                            <button class="btn-text" id="editCycleBtn">주기 설정</button>
+                        </div>
+                        <div class="tracker-layout">
+                            <div class="cycle-display">
+                                <div class="cycle-circle">
+                                    <div class="cycle-circle-inner">
+                                        <span class="cycle-phase" id="cyclePhase">황체기</span>
+                                        <span class="cycle-dday" id="cycleDDay">D-5</span>
+                                        <span class="cycle-day-count" id="cycleDayCount">주기 23일차</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 달력형 주기 뷰 -->
+                            <div class="calendar-wrapper">
+                                <div class="calendar-header">
+                                    <button class="cal-nav-btn" id="prevMonthBtn">&lt;</button>
+                                    <span class="calendar-title" id="calendarTitle">2026년 7월</span>
+                                    <button class="cal-nav-btn" id="nextMonthBtn">&gt;</button>
+                                </div>
+                                <div class="calendar-weekdays">
+                                    <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+                                </div>
+                                <div class="calendar-days" id="calendarDays">
+                                    <!-- JS에서 동적으로 달력 날짜 렌더링 -->
+                                </div>
+                                <p class="cal-tip">* 달력에서 생리 시작일을 클릭하면 자동으로 주기가 재계산됩니다.</p>
+                            </div>
+                        </div>
+                        <div class="cycle-timeline">
+                            <div class="timeline-point" data-phase="menstrual"><span class="dot"></span><span class="label">월경기</span></div>
+                            <div class="timeline-point" data-phase="follicular"><span class="dot"></span><span class="label">여포기</span></div>
+                            <div class="timeline-point" data-phase="ovulatory"><span class="dot"></span><span class="label">배란기</span></div>
+                            <div class="timeline-point active" data-phase="luteal"><span class="dot"></span><span class="label">황체기</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 상황별 조언 탭 탑재 생활 가이드 -->
+                    <div class="card glass guide-card">
+                        <div class="card-header">
+                            <h3>오늘의 생활 가이드</h3>
+                            <span class="badge" id="guidePhaseBadge">황체기</span>
+                        </div>
+                        <!-- 상황별 조언 탭 -->
+                        <div class="guide-tabs" id="guideTabs">
+                            <button class="guide-tab-btn active" data-situation="normal">기본</button>
+                            <button class="guide-tab-btn" data-situation="exam">시험기간</button>
+                            <button class="guide-tab-btn" data-situation="marathon">마라톤</button>
+                            <button class="guide-tab-btn" data-situation="pregnancy">임신준비</button>
+                            <button class="guide-tab-btn" data-situation="recuperation">수술요양</button>
+                            <button class="guide-tab-btn" data-situation="stress">극심스트레스</button>
+                            <button class="guide-tab-btn" data-situation="insomnia">잠못자요</button>
+                        </div>
+                        <div class="guide-content" id="guideContentBox">
+                            <!-- JS를 통해 상황별 탭에 맞춰 가이드 렌더링 -->
+                        </div>
+                    </div>
+
+                    <!-- 일일 컨디션 다이어리 (변증 질문 탑재) -->
+                    <div class="card glass diary-card">
+                        <div class="card-header">
+                            <h3>일일 컨디션 다이어리</h3>
+                            <span class="log-date" id="currentLogDate">오늘: 2026-07-04</span>
+                        </div>
+                        <form id="dailyLogForm" class="diary-form">
+                            <div class="form-row">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="logIsPeriod" name="isPeriod">
+                                    <span class="checkmark"></span>
+                                    오늘 생리 중인가요?
+                                </label>
+                            </div>
+                            
+                            <!-- 확장된 데일리 체크리스트 (기본 자가진단 항목 연동) -->
+                            <div class="symptom-section">
+                                <h4>오늘 겪은 몸 상태를 체크해 주세요 (중복 가능)</h4>
+                                <div class="symptom-grid">
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_bloodClots" name="bloodClots">
+                                        <span class="checkmark"></span>
+                                        생리혈 덩어리/찌꺼기 나옴
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_severePain" name="severePain">
+                                        <span class="checkmark"></span>
+                                        칼로 베이듯 극심한 생리통
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_dizziness" name="dizziness">
+                                        <span class="checkmark"></span>
+                                        핑 도는 어지러움/두통
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_drySkin" name="drySkin">
+                                        <span class="checkmark"></span>
+                                        피부/입술 거칠고 매우 건조함
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_coldBody" name="coldBody">
+                                        <span class="checkmark"></span>
+                                        아랫배/손발이 유독 차가움
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_extremeFatigue" name="extremeFatigue">
+                                        <span class="checkmark"></span>
+                                        기력이 없고 몸이 처짐
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_bloating" name="bloating">
+                                        <span class="checkmark"></span>
+                                        몸/다리가 무겁고 많이 부음
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_overeating" name="overeating">
+                                        <span class="checkmark"></span>
+                                        식욕 폭발/폭식 충동
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_stressPain" name="stressPain">
+                                        <span class="checkmark"></span>
+                                        신경 쓸 때 통증이 더 심해짐
+                                    </label>
+                                    <label class="checkbox-container sym-item">
+                                        <input type="checkbox" id="sym_moodSwings" name="moodSwings">
+                                        <span class="checkmark"></span>
+                                        감정 기복/가슴답답/한숨 나옴
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">오늘 기록 저장</button>
+                        </form>
+                    </div>
+
+                    <!-- 오늘 나의 월경 유형 리포트 (질병광고 방지 문구화) -->
+                    <div class="card glass report-card">
+                        <div class="card-header">
+                            <h3>오늘 나의 월경 유형</h3>
+                        </div>
+                        <div class="report-content">
+                            <h4 id="reportTypeName">어혈형 (혈행 불통)</h4>
+                            <p class="report-desc" id="reportTypeDesc">혈액순환이 쉽게 막히고 골반강 내 혈액이 정체되어 통증이 콕콕 찌르듯 강하게 나타나는 유형입니다.</p>
+                            
+                            <div class="key-ingredients">
+                                <h5>추천 약재 구성</h5>
+                                <div class="badges-container" id="reportIngredients">
+                                    <span class="badge badge-crimson">당귀</span>
+                                    <span class="badge badge-crimson">천궁</span>
+                                    <span class="badge badge-crimson">구절초</span>
+                                </div>
+                            </div>
+                            
+                            <div class="dynamic-info-box">
+                                <p class="dynamic-update-info">🔄 일일 기록이 최근 28일간 누적되어 데이터가 쌓이면, 오늘 나의 월경 유형과 추천 차가 자동으로 계산되어 업데이트됩니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. 나의 추천 티 뷰 (Tea View) -->
+            <section id="tea-view" class="content-view">
+                <div class="tea-recommendation-container">
+                    <div class="recommendation-header">
+                        <h2>이번 주기에 추천하는 한방 웰니스 티</h2>
+                        <p>진단 결과와 최근 28일간 기록된 일일 컨디션을 결합하여 최적의 효능을 내는 차를 큐레이션 했습니다.</p>
+                    </div>
+
+                    <div class="tea-main-card card glass">
+                        <div class="tea-badge" id="teaAlgorithmBadge">데일리 기록 반영 추천</div>
+                        <div class="tea-info-layout">
+                            <div class="tea-visual">
+                                <div class="tea-cup-glow">🍵</div>
+                            </div>
+                            <div class="tea-details">
+                                <h3 id="recommendTeaName">구절초 작약차</h3>
+                                <p class="tea-flavor" id="recommendTeaFlavor">풍미: 구수한 꽃 향과 은은한 단맛, 부드러운 목 넘김</p>
+                                <p class="tea-desc" id="recommendTeaDesc">골반 강 내 혈액 순환을 활발히 하고 자궁 평활근 이완을 돕는 구절초를 베이스로, 긴장된 근육을 이완하는 작약을 혼합하여 생리 전후 통증과 혈행을 강력히 케어합니다.</p>
+                                
+                                <div class="recipe-box">
+                                    <h4>💡 섭취 루틴 가이드</h4>
+                                    <p id="recommendTeaRoutine">생리 예정일 5일 전부터 하루 2회(오전 식후, 저녁 취침 전) 따뜻하게 드립백으로 우려 섭취 시 생리통 완화에 시너지를 냅니다.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 중요: 논문 기반 과학적 근거 (Research Evidence Slot) -->
+                        <div class="evidence-section" id="evidenceSection">
+                            <div class="evidence-header">
+                                <span class="evidence-tag">RESEARCH EVIDENCE</span>
+                                <h3>논문 분석 기반 과학적 근거</h3>
+                            </div>
+                            <div class="evidence-cards" id="evidenceCardsContainer">
+                                <!-- JS에서 동적으로 매핑된 논문 정보가 렌더링됩니다 -->
+                            </div>
+                            <p class="disclaimer">※ 본 리포트는 질병의 예방 및 치료 목적의 의약품이 아닌, SCI급 학술지 데이터를 기반으로 한 일상적인 웰니스 식품 및 생활 습관 가이드라인입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. 과학적 근거 상세 뷰 (Science View) -->
+            <section id="science-view" class="content-view">
+                <div class="science-container">
+                    <div class="card glass science-main-card">
+                        <h2>한의학-현대의학의 연결점과 치료 기전</h2>
+                        <p class="intro-p">김하백 연구소는 전통 한의학 처방의 임상 지혜와 현대 생물학적 메커니즘의 연결점을 찾아, 신뢰할 수 있는 데이터 기반의 웰니스를 구현합니다.</p>
+                        
+                        <div class="mechanism-grid">
+                            <div class="mechanism-card">
+                                <h3>1. 자궁 평활근 이완 및 통증 제어</h3>
+                                <p>생리통의 주요 원인은 자궁 평활근의 과도한 수축입니다. 당귀(Decursin 성분)와 천궁 유효성분은 자궁 내 칼슘 이온 유입을 억제하여 평활근의 경련성 수축을 예방하고 진통 효과를 냅니다.</p>
+                                <!-- CSS 기반 모의 차트 / 인포그래픽 -->
+                                <div class="chart-container">
+                                    <div class="chart-title">자궁 평활근 수축 압력 비교 (대조군 vs 당귀추출물군)</div>
+                                    <div class="bar-chart">
+                                        <div class="chart-bar-row">
+                                            <span class="label">일반 대조군</span>
+                                            <div class="bar-wrapper">
+                                                <div class="bar fill-red" style="width: 90%;"></div>
+                                            </div>
+                                            <span class="value">90 mmHg</span>
+                                        </div>
+                                        <div class="chart-bar-row">
+                                            <span class="label">당귀 추출물</span>
+                                            <div class="bar-wrapper">
+                                                <div class="bar fill-blue" style="width: 35%;"></div>
+                                            </div>
+                                            <span class="value">35 mmHg</span>
+                                        </div>
+                                    </div>
+                                    <p class="chart-caption">*자궁 수축 유도제(Oxytocin) 투여 후 수축 압력의 감소 추이 분석 결과</p>
+                                </div>
+                            </div>
+
+                            <div class="mechanism-card">
+                                <h3>2. 식물성 에스트로겐(Phytoestrogen) 수용체 결합</h3>
+                                <p>다낭성난소증후군(PCOS)이나 생리 불순 환자의 경우, 한약재 내 식물성 에스트로겐 성분이 에스트로겐 수용체(ER-beta)에 선택적으로 결합하여, 몸에 호르몬 부작용을 일으키지 않으면서 천연 호르몬 조절자 역할을 수행하여 생리 주기를 안정화합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Cycle Modal (기록 변경용) -->
+    <div class="modal-overlay" id="cycleModal">
+        <div class="modal card glass">
+            <h3>주기 설정 변경</h3>
+            <p>현재 생리 주기 일수를 설정하여 주기를 관리합니다.</p>
+            <div class="form-group">
+                <label>마지막 생리 시작일</label>
+                <input type="date" id="modalLastPeriodDate">
+            </div>
+            <div class="form-group">
+                <label>평균 생리 주기 (일)</label>
+                <input type="number" id="modalCycleLength" min="20" max="45" value="28">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" id="closeModalBtn">취소</button>
+                <button class="btn btn-primary" id="saveModalBtn">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
