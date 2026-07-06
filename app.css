@@ -1420,30 +1420,56 @@ body {
     }
     
     .main-header {
-        padding: 5px 0 20px 0;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 10px 0 20px 0;
         margin-bottom: 25px;
+        text-align: left !important;
+        width: 100%;
+    }
+    
+    .logo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .logo-title {
+        font-size: 1.15rem !important;
+        letter-spacing: 2px;
+    }
+    
+    .logo-sub {
+        display: none !important;
     }
     
     .main-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        border-radius: 20px;
-        padding: 4px;
-        gap: 4px;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-end !important;
+        width: auto !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        gap: 4px !important;
     }
     
     .nav-btn {
-        padding: 6px 12px;
-        font-size: 0.78rem;
-        flex: 1 1 auto;
+        padding: 6px 10px !important;
+        font-size: 0.76rem !important;
+        font-weight: 600;
+        border-radius: 12px !important;
+        flex: 0 0 auto !important;
         text-align: center;
+        color: var(--color-gray-medium);
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(176, 73, 76, 0.05);
     }
     
-    .reset-btn {
-        margin-left: 0;
-        margin-top: 4px;
-        width: 100%;
+    .nav-btn.active {
+        color: var(--color-white) !important;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)) !important;
     }
     
     .card {
