@@ -1375,7 +1375,15 @@ img, svg, canvas {
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
-  /* ⭐️ 모바일 폰 뷰 (600px 이하) 오버플로우 방지 및 수평 정렬, 이미지 찌그러짐 완벽 차단 */
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ⭐️ 모바일 폰 뷰 (600px 이하) 오버플로우 방지 및 수평 정렬, 이미지 찌그러짐 완벽 차단 */
 @media (max-width: 600px) {
     /* 1. 최상위 및 컨테이너 가로폭 강제 잠금 */
     .app-container {
