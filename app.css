@@ -1795,13 +1795,26 @@ img, svg, canvas {
     }
 
     .mechanism-card h3 {
-        font-size: 0.98rem !important; /* 모바일에서 콤팩트하게 축소 */
-        white-space: nowrap !important; /* 절대로 줄바꿈되지 않게 방지 */
-        word-break: keep-all !important;
-        text-overflow: ellipsis !important;
-        overflow: hidden !important;
+        font-size: 0.98rem !important; /* 모바일에서 글씨 크기 콤팩트하게 축소 */
         width: 100% !important;
         display: block !important;
+    }
+
+    /* 1. 자궁 평활근 이완 및 통증 제어 ➡️ 한 줄에 다 들어오도록 nowrap 잠금 */
+    .mechanism-card:first-child h3 {
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+
+    /* 2번 카드 이후 ➡️ 자연스러운 가독성을 위해 줄바꿈(wrap) 허용 */
+    .mechanism-card:nth-child(n+2) h3 {
+        white-space: normal !important;
+        word-break: keep-all !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        line-height: 1.35 !important;
     }
     
     .science-main-card h2 {
