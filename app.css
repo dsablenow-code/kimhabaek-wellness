@@ -27,12 +27,19 @@
     padding: 0;
 }
 
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: var(--font-sans);
     color: var(--color-gray-dark);
     background-color: #fbf8f7;
     min-height: 100vh;
-    overflow-x: hidden;
     position: relative;
     letter-spacing: -0.02em;
 }
@@ -1534,19 +1541,27 @@ body {
     }
     
     .calendar-weekdays span {
-        font-size: 0.68rem;
+        font-size: 0.7rem !important;
         min-width: 0 !important;
         width: 100% !important;
-        display: inline-block;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
         box-sizing: border-box;
+        justify-self: center !important;
     }
     
     .cal-day {
-        font-size: 0.7rem;
+        font-size: 0.72rem !important;
         min-width: 0 !important;
         width: 100% !important;
+        max-width: 32px !important; /* 모바일에서 캘린더 셀 과팽창 완전 방지 */
         aspect-ratio: 1 / 1 !important;
-        box-sizing: border-box;
+        box-sizing: border-box !important;
+        justify-self: center !important; /* 그리드 열 내에서 정중앙 정렬 */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     /* ⭐️ 가로 타임라인을 모바일에서 세로 스택형으로 완전 전환 */
