@@ -1368,62 +1368,22 @@ body {
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* 미디어 쿼리 (반응형) */
-@media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .tracker-layout {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .calendar-wrapper {
-        width: 100%;
-    }
-    
-    .main-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .main-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .mechanism-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .tea-info-layout {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-    
-    .recipe-box {
-        border-left: none;
-        border-top: 3px solid var(--color-primary);
-        border-radius: 0 0 8px 8px;
-    }
-}
-
-/* ⭐️ 모바일 폰 뷰 (600px 이하) 오버플로우 방지 및 수평 정렬, 이미지 찌그러짐 완벽 차단 */
+  /* ⭐️ 모바일 폰 뷰 (600px 이하) 오버플로우 방지 및 수평 정렬, 이미지 찌그러짐 완벽 차단 */
 @media (max-width: 600px) {
+    /* 1. 최상위 및 컨테이너 가로폭 강제 잠금 */
     .app-container {
-        padding: 15px 16px; /* 좌우 마진을 단단하게 맞추어 삐져나감 방지 */
+        padding: 15px 16px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    main.main-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
     }
     
     /* ⭐️ 로고와 탭 바 정렬 맞춤: 2단 배치 및 100% 수평 대칭 일치 */
@@ -1486,36 +1446,51 @@ body {
         box-shadow: 0 4px 10px rgba(176, 73, 76, 0.15) !important;
     }
     
+    /* 모든 카드 요소의 가로폭 초과 원천 방어 */
     .card {
-        padding: 20px 12px;
-        border-radius: 20px;
+        padding: 20px 12px !important;
+        border-radius: 20px !important;
         width: 100% !important;
         max-width: 100% !important;
-        box-sizing: border-box;
+        box-sizing: border-box !important;
+        overflow: hidden !important; /* 자식 삐져나감 방어 */
     }
     
+    /* ⭐️ 2. 카드 내부 요소 강제 세로(column) 배치 */
     .tracker-layout {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
+        display: flex !important;
+        flex-direction: column !important; /* 모바일 가로 배치 절대 금지 */
+        align-items: center !important;
+        width: 100% !important;
+        gap: 20px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 서클 트래커를 카드의 가로 정중앙에 고정 배치 */
+    .cycle-display {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 10px !important;
+        flex-shrink: 0 !important;
     }
     
     .cycle-circle {
-        width: 135px;
-        height: 135px;
+        width: 135px !important;
+        height: 135px !important;
+        flex-shrink: 0 !important;
     }
     
     .cycle-circle-inner {
-        width: 119px;
-        height: 119px;
+        width: 119px !important;
+        height: 119px !important;
     }
     
     .cycle-dday {
-        font-size: 2.1rem;
+        font-size: 2.1rem !important;
     }
     
-    /* 캘린더 가로 삐져나감 물리적 차단 */
+    /* ⭐️ 3. 캘린더 grid 및 padding의 100% 반응형 조율 */
     .calendar-wrapper {
         padding: 10px 4px !important;
         width: 100% !important;
@@ -1524,38 +1499,38 @@ body {
     }
     
     .calendar-title {
-        font-size: 0.85rem;
+        font-size: 0.85rem !important;
     }
     
-    /* ⭐️ 요일 및 일자 그리드에 minmax(0, 1fr)를 강제하여 캘린더 가로 팽창 붕괴 완전 방지 */
+    /* 요일 및 일자 그리드에 minmax(0, 1fr)를 강제하여 캘린더 가로 팽창 붕괴 완전 방지 */
     .calendar-weekdays {
         grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
-        gap: 2px;
+        gap: 2px !important;
         width: 100% !important;
     }
     
     .calendar-days {
         grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
-        gap: 2px;
+        gap: 2px !important;
         width: 100% !important;
     }
     
     .calendar-weekdays span {
-        font-size: 0.7rem !important;
+        font-size: 0.68rem !important;
         min-width: 0 !important;
         width: 100% !important;
         display: inline-flex !important;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
         justify-self: center !important;
     }
     
     .cal-day {
-        font-size: 0.72rem !important;
+        font-size: 0.7rem !important;
         min-width: 0 !important;
         width: 100% !important;
-        max-width: 32px !important; /* 모바일에서 캘린더 셀 과팽창 완전 방지 */
+        max-width: 32px !important; /* 캘린더 셀 과팽창 완전 방지 */
         aspect-ratio: 1 / 1 !important;
         box-sizing: border-box !important;
         justify-self: center !important; /* 그리드 열 내에서 정중앙 정렬 */
@@ -1566,58 +1541,66 @@ body {
     
     /* ⭐️ 가로 타임라인을 모바일에서 세로 스택형으로 완전 전환 */
     .cycle-timeline {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        margin-top: 25px;
-        padding-left: 10px;
-        width: 100%;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        margin-top: 25px !important;
+        padding-left: 10px !important;
+        width: 100% !important;
     }
     
     /* right: auto !important 추가로 PC 상속 버그 해결 (가로 팽창 완전 차단) */
     .cycle-timeline::before {
-        height: calc(100% - 20px);
-        width: 3px;
-        left: 20px;
-        top: 10px;
+        height: calc(100% - 20px) !important;
+        width: 3px !important;
+        left: 20px !important;
+        top: 10px !important;
         right: auto !important;
-        background-color: rgba(176, 73, 76, 0.08);
+        background-color: rgba(176, 73, 76, 0.08) !important;
     }
     
     .timeline-point {
-        flex-direction: row;
-        gap: 16px;
-        align-items: center;
-        justify-content: flex-start;
-        width: 100%;
+        flex-direction: row !important;
+        gap: 16px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
     }
     
     .timeline-point .dot {
-        flex-shrink: 0;
+        flex-shrink: 0 !important;
     }
     
     .timeline-point .label {
-        margin-top: 0;
-        font-size: 0.82rem;
+        margin-top: 0 !important;
+        font-size: 0.82rem !important;
     }
     
+    /* ⭐️ 4. 가로 스크롤형 상황 탭 영역 폭 제한 */
     .guide-tabs {
-        padding-bottom: 6px;
-        margin-bottom: 18px;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: auto !important;
+        padding-bottom: 6px !important;
+        margin-bottom: 18px !important;
     }
     
     .guide-tab-btn {
-        padding: 6px 12px;
-        font-size: 0.72rem;
+        padding: 6px 12px !important;
+        font-size: 0.72rem !important;
     }
     
-    /* 다이어리 증상 영역에 모바일 전용 세로 스크롤(max-height) 부여 */
+    /* ⭐️ 5. 다이어리 증상 영역에 모바일 전용 세로 스크롤(max-height) 및 고정폭 제거 */
     .symptom-section {
-        max-height: 280px;
-        overflow-y: auto;
-        padding-right: 6px;
-        border-top: 1.5px solid rgba(176, 73, 76, 0.08);
-        padding-top: 16px;
+        max-height: 280px !important;
+        overflow-y: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding-right: 6px !important;
+        border-top: 1.5px solid rgba(176, 73, 76, 0.08) !important;
+        padding-top: 16px !important;
     }
     
     .symptom-section::-webkit-scrollbar {
@@ -1631,17 +1614,19 @@ body {
     
     /* 다이어리 칩의 1열 세로 스택형 전환 */
     .symptom-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
-    /* ⭐️ 중요: 마크업 겹침 깨짐 버그 해결 
+    /* ⭐️ 다이어리 칩 글씨 겹침 깨짐 버그 수정 
        checkmark 대신 부모 label(.checkbox-container) 자체를 캡슐 칩 디자인으로 입힘
        display: flex; align-items: center;로 글자 뭉개짐 및 높이 뒤틀림 완치 */
     .symptom-grid .checkbox-container {
         width: 100% !important;
+        max-width: 100% !important;
         position: relative !important;
         display: flex !important;
         align-items: center !important;
@@ -1683,8 +1668,17 @@ body {
         display: none !important;
     }
     
+    /* ⭐️ 6. 하단 저장 버튼 및 모든 폼 요소의 absolute/고정폭 완전 배제 */
+    form button[type="submit"] {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-top: 15px !important;
+    }
+    
     .report-content h4 {
-        font-size: 1.25rem;
+        font-size: 1.25rem !important;
     }
     
     /* ⭐️ 모바일에서 차 이미지 찌그러짐 원천 봉쇄 ( aspect-ratio 강제 및 크기 고정 ) */
@@ -1692,31 +1686,32 @@ body {
         flex: 0 0 110px !important;
         height: 110px !important;
         width: 110px !important;
-        font-size: 3rem;
+        font-size: 3rem !important;
         aspect-ratio: 1 / 1 !important;
-        margin: 0 auto 10px;
-        box-sizing: border-box;
+        margin: 0 auto 10px !important;
+        box-sizing: border-box !important;
     }
     
     .tea-info-layout {
-        gap: 20px;
-        padding-bottom: 25px;
-        margin-bottom: 25px;
+        gap: 20px !important;
+        padding-bottom: 25px !important;
+        margin-bottom: 25px !important;
     }
     
     .tea-details h3 {
-        font-size: 1.45rem;
+        font-size: 1.45rem !important;
     }
     
     .tea-desc {
-        font-size: 0.88rem;
-        text-align: left;
+        font-size: 0.88rem !important;
+        text-align: left !important;
     }
     
     .mechanism-card {
-        padding: 18px;
+        padding: 18px !important;
     }
     
     .science-main-card h2 {
-        font-size: 1.45rem;
+        font-size: 1.45rem !important;
     }
+}
