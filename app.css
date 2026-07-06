@@ -1510,7 +1510,7 @@ body {
     
     /* 캘린더 가로 삐져나감 물리적 차단 */
     .calendar-wrapper {
-        padding: 12px 8px !important;
+        padding: 10px 4px !important;
         width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
@@ -1520,25 +1520,32 @@ body {
         font-size: 0.85rem;
     }
     
-    /* 요일 및 일자 그리드에 minmax(0, 1fr)를 강제하여 캘린더 가로 팽창 붕괴 완전 방지 */
+    /* ⭐️ 요일 및 일자 그리드에 minmax(0, 1fr)를 강제하여 캘린더 가로 팽창 붕괴 완전 방지 */
     .calendar-weekdays {
         grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
         gap: 2px;
+        width: 100% !important;
     }
     
     .calendar-days {
         grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
         gap: 2px;
+        width: 100% !important;
     }
     
     .calendar-weekdays span {
-        font-size: 0.7rem;
+        font-size: 0.68rem;
+        min-width: 0 !important;
+        width: 100% !important;
+        display: inline-block;
+        box-sizing: border-box;
     }
     
     .cal-day {
-        font-size: 0.72rem;
+        font-size: 0.7rem;
+        min-width: 0 !important;
         width: 100% !important;
-        max-width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
         box-sizing: border-box;
     }
     
@@ -1616,12 +1623,15 @@ body {
     }
     
     /* ⭐️ 중요: 마크업 겹침 깨짐 버그 해결 
-       checkmark 대신 부모 label(.checkbox-container) 자체를 캡슐 칩 디자인으로 입힘 */
+       checkmark 대신 부모 label(.checkbox-container) 자체를 캡슐 칩 디자인으로 입힘
+       display: flex; align-items: center;로 글자 뭉개짐 및 높이 뒤틀림 완치 */
     .symptom-grid .checkbox-container {
         width: 100% !important;
         position: relative !important;
-        display: block !important;
-        padding: 12px 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 10px 16px !important;
         background-color: rgba(255, 255, 255, 0.6) !important;
         border: 1px solid rgba(176, 73, 76, 0.15) !important;
         border-radius: 12px !important;
@@ -1631,7 +1641,9 @@ body {
         color: var(--color-gray-medium) !important;
         transition: var(--transition-smooth) !important;
         box-sizing: border-box !important;
-        margin-bottom: 0 !important; /* gap 간격이 있으므로 마진 제거 */
+        margin-bottom: 0 !important;
+        min-height: 42px !important;
+        line-height: 1.2 !important;
     }
     
     .symptom-grid .checkbox-container input {
@@ -1693,4 +1705,3 @@ body {
     .science-main-card h2 {
         font-size: 1.45rem;
     }
-}
