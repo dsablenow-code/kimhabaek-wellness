@@ -769,11 +769,23 @@ img, svg, canvas {
     line-height: 1.6;
 }
 
-/* 일일 컨디션 다이어리 증상 체크리스트 (칩 형태로 적용) */
+/* 일일 컨디션 다이어리 증상 체크리스트 (세로 1열 정렬 및 스크롤바) */
 .symptom-section {
     margin-top: 15px;
     border-top: 1.5px solid rgba(176, 73, 76, 0.08);
     padding-top: 20px;
+    max-height: 280px; /* 데스크탑에서도 동일하게 세로 스크롤 영역 부여 */
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.symptom-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.symptom-section::-webkit-scrollbar-thumb {
+    background-color: rgba(176, 73, 76, 0.2);
+    border-radius: 3px;
 }
 
 .symptom-section h4 {
@@ -786,15 +798,31 @@ img, svg, canvas {
 
 .symptom-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column; /* 데스크탑에서도 세로 1열 정렬 */
+    gap: 8px;
     width: 100%;
 }
 
+/* checkmark 대신 부모 label(.checkbox-container) 자체를 캡슐 칩 디자인으로 통일 */
 .symptom-grid .checkbox-container {
-    padding-left: 0;
-    margin-bottom: 0;
-    cursor: pointer;
+    width: 100% !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 10px 16px !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid rgba(176, 73, 76, 0.15) !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    color: var(--color-gray-medium) !important;
+    transition: var(--transition-smooth) !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0 !important;
+    min-height: 42px !important;
+    line-height: 1.2 !important;
     user-select: none;
 }
 
@@ -806,40 +834,23 @@ img, svg, canvas {
     width: 0;
 }
 
-/* 칩의 기본 상태 */
+.symptom-grid .checkbox-container:hover {
+    background-color: rgba(236, 125, 125, 0.05) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary-dark) !important;
+}
+
+/* 칩 누르면 로즈빛 그라데이션 활성화 (:has 선택자 적용) */
+.symptom-grid .checkbox-container:has(input:checked) {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)) !important;
+    border-color: var(--color-primary-dark) !important;
+    color: var(--color-white) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 10px rgba(176, 73, 76, 0.15) !important;
+}
+
+/* 비주얼 충돌 방지를 위해 빈 checkmark 숨김 */
 .symptom-grid .checkmark {
-    position: static;
-    display: inline-block;
-    height: auto;
-    width: auto;
-    background-color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(176, 73, 76, 0.15);
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--color-gray-medium);
-    transition: var(--transition-smooth);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
-}
-
-.symptom-grid .checkbox-container:hover .checkmark {
-    background-color: rgba(236, 125, 125, 0.05);
-    border-color: var(--color-primary);
-    color: var(--color-primary-dark);
-}
-
-/* 선택되었을 때의 칩 형태 (로즈빛 활성화) */
-.symptom-grid .checkbox-container input:checked ~ .checkmark {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-    border-color: var(--color-primary-dark);
-    color: var(--color-white);
-    font-weight: 600;
-    transform: scale(1.03);
-    box-shadow: 0 4px 10px rgba(176, 73, 76, 0.15);
-}
-
-.symptom-grid .checkmark:after {
     display: none !important;
 }
 
@@ -1479,6 +1490,21 @@ img, svg, canvas {
         box-sizing: border-box !important;
         overflow: hidden !important; /* 자식 삐져나감 방어 */
     }
+
+    /* ⭐️ 모바일에서 다이어리 카드 날짜 개행 겹침 버그 완치 */
+    .diary-card .card-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+    }
+
+    .diary-card .card-header .log-date {
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+        font-size: 0.8rem !important;
+        margin-top: 2px !important;
+        color: var(--color-primary-dark) !important;
+    }
     
     /* ⭐️ 2. 카드 내부 요소 강제 세로(column) 배치 */
     .tracker-layout {
@@ -1660,7 +1686,7 @@ img, svg, canvas {
         border: 1px solid rgba(176, 73, 76, 0.15) !important;
         border-radius: 12px !important;
         cursor: pointer !important;
-        font-size: 0.82rem !important;
+        font-size: 0.78rem !important; /* 모바일에서 텍스트 수용력을 위해 약간 다이어트 */
         font-weight: 500 !important;
         color: var(--color-gray-medium) !important;
         transition: var(--transition-smooth) !important;
@@ -1668,6 +1694,9 @@ img, svg, canvas {
         margin-bottom: 0 !important;
         min-height: 42px !important;
         line-height: 1.2 !important;
+        white-space: nowrap !important; /* 칩 텍스트 절대 줄바꿈 금지 */
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
     
     .symptom-grid .checkbox-container input {
@@ -1763,6 +1792,16 @@ img, svg, canvas {
         width: 100% !important;
         min-width: 0 !important;
         box-sizing: border-box !important;
+    }
+
+    .mechanism-card h3 {
+        font-size: 0.98rem !important; /* 모바일에서 콤팩트하게 축소 */
+        white-space: nowrap !important; /* 절대로 줄바꿈되지 않게 방지 */
+        word-break: keep-all !important;
+        text-overflow: ellipsis !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        display: block !important;
     }
     
     .science-main-card h2 {
