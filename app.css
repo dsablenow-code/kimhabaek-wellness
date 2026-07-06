@@ -1385,6 +1385,13 @@ img, svg, canvas {
 
 /* ⭐️ 모바일 폰 뷰 (600px 이하) 오버플로우 방지 및 수평 정렬, 이미지 찌그러짐 완벽 차단 */
 @media (max-width: 600px) {
+    /* 0. 대시보드 2열 그리드를 세로 1열 스택형으로 전격 전환 (가독성 극대화) */
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        width: 100% !important;
+    }
+
     /* 1. 최상위 및 컨테이너 가로폭 강제 잠금 */
     .app-container {
         padding: 15px 16px !important;
