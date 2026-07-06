@@ -29,6 +29,7 @@
 
 html, body {
     width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -42,6 +43,12 @@ body {
     min-height: 100vh;
     position: relative;
     letter-spacing: -0.02em;
+    word-break: keep-all; /* 글로벌 한글 단어 찢어짐 방지 */
+}
+
+img, svg, canvas {
+    max-width: 100%;
+    height: auto;
 }
 
 /* 유기적 유체형 그라데이션 블롭 배경 (디테일 상향) */
@@ -1438,6 +1445,8 @@ body {
         color: var(--color-gray-medium) !important;
         box-shadow: none !important;
         margin: 0 !important;
+        white-space: nowrap !important; /* 모바일에서 글자가 아래로 찢어지는 현상 절대 방지 */
+        word-break: keep-all !important;
     }
     
     .nav-btn.active {
@@ -1692,26 +1701,57 @@ body {
         box-sizing: border-box !important;
     }
     
+    /* 추천 차 카드 모바일 세로 1열 배치 강제 및 텍스트 찢어짐 차단 */
     .tea-info-layout {
+        display: flex !important;
+        flex-direction: column !important; /* 가로 배치 금지 ➡️ 세로 스택 */
+        align-items: center !important;
+        text-align: center !important;
         gap: 20px !important;
         padding-bottom: 25px !important;
         margin-bottom: 25px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .tea-details {
+        width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
     }
     
     .tea-details h3 {
         font-size: 1.45rem !important;
+        word-break: keep-all !important;
+        white-space: normal !important;
+        text-align: center !important;
     }
     
     .tea-desc {
         font-size: 0.88rem !important;
-        text-align: left !important;
+        text-align: center !important;
+        word-break: keep-all !important;
+        white-space: normal !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* 과학적 근거 메커니즘 그리드 세로 1열 정렬 */
+    .mechanism-grid {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        gap: 16px !important;
     }
     
     .mechanism-card {
         padding: 18px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
     }
     
     .science-main-card h2 {
         font-size: 1.45rem !important;
+        word-break: keep-all !important;
     }
 }
