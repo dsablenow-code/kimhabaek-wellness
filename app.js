@@ -201,21 +201,7 @@ function initNavigation() {
     document.getElementById("reDiagnoseBtn").addEventListener("click", () => {
         if(confirm("기존 자가진단 기록과 데일리 로그가 리셋됩니다. 다시 진단하시겠습니까?")) {
             localStorage.clear();
-            appState.userProfile = {
-                painPoint: "DYSMENORRHEA",
-                constitution: "",
-                lastPeriodDate: getTodayDateString(),
-                cycleLength: 28,
-                dailyLogs: []
-            };
-            appState.currentQuestionIndex = 0;
-            appState.answers = {};
-            document.getElementById("mainNav").style.display = "none";
-            switchView("diagnosis-view");
-            document.getElementById("diag-step-2").classList.remove("active");
-            document.getElementById("diag-loading").classList.remove("active");
-            document.getElementById("diag-step-1").classList.add("active");
-            saveData();
+            location.reload();
         }
     });
 }

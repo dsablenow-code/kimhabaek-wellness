@@ -1346,3 +1346,107 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* 모바일 폰 뷰 (480px 이하) 최적화 */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 16px;
+        border-radius: 16px;
+    }
+    
+    .logo-title {
+        font-size: 1.35rem;
+    }
+    
+    .nav-btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
+    
+    .step-header h2 {
+        font-size: 1.35rem;
+    }
+    
+    .question-text {
+        font-size: 1.15rem;
+    }
+    
+    .choice-btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .cycle-circle {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .cycle-circle-inner {
+        width: 122px;
+        height: 122px;
+    }
+    
+    .cycle-dday {
+        font-size: 1.9rem;
+    }
+    
+    .calendar-wrapper {
+        padding: 10px;
+    }
+    
+    .calendar-title {
+        font-size: 0.85rem;
+    }
+    
+    .calendar-weekdays span {
+        font-size: 0.7rem;
+    }
+    
+    .cal-day {
+        font-size: 0.72rem;
+    }
+    
+    .guide-tab-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .symptom-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sym-item {
+        font-size: 0.78rem !important;
+        margin-bottom: 8px;
+    }
+    
+    .report-content h4 {
+        font-size: 1.25rem;
+    }
+    
+    .tea-visual {
+        flex: 0 0 100px;
+        height: 100px;
+        font-size: 2.8rem;
+    }
+    
+    .tea-details h3 {
+        font-size: 1.35rem;
+    }
+    
+    .tea-desc {
+        font-size: 0.85rem;
+    }
+    
+    .mechanism-card {
+        padding: 16px;
+    }
+    
+    .science-main-card h2 {
+        font-size: 1.45rem;
+    }
+}
